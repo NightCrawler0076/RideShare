@@ -1,0 +1,422 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+  <title>RideShare Home Community - Theme Supported</title>
+
+  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Information:wght@400;500;600;700&display=swap"
+    rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap"
+    rel="stylesheet" />
+
+  <style type="text/tailwindcss">
+    @layer base {
+            :root {
+                /* Light Mode */
+                --theme-bg: #fff1eb; /* peach fallback */
+                --theme-bg-gradient: linear-gradient(135deg, #fff1eb, #ace0f9);
+                --theme-surface: #ffffff; /* surface */
+                
+                --theme-text-main: #1e293b;
+                --theme-text-muted: #64748b;
+                --theme-text-reverse: #ffffff; /* used for button text on primary bg */
+                
+                --theme-border: #e2e8f0;
+                
+                --theme-primary: #87CEFA;
+                --theme-primary-hover: #7c3aed;
+                --theme-primary-alpha: rgba(139, 92, 246, 0.1); /* primary/10 */
+                --theme-primary-alpha-high: rgba(139, 92, 246, 0.05); /* hover:primary/5 */
+                
+                --theme-secondary: #3b82f6;
+                --theme-secondary-alpha: rgba(59, 130, 246, 0.1); /* secondary/10 */
+                
+                /* Hero Background Overlay (Light Mode) */
+                --hero-overlay-alpha1: rgba(248, 250, 252, 0.85);
+                --hero-overlay-alpha2: rgba(248, 250, 252, 0.95);
+
+                /* Text specific for Hero CTA buttons */
+                --theme-btn-join-text: #ffffff;
+                --theme-btn-create-overlay: #1e293b;
+                
+                /* Icon Drop Shadows (Light mode - practically none/default) */
+                --icon-shadow-primary: none;
+                --icon-shadow-secondary: none;
+                --icon-shadow-ping: none;
+                
+                --scrollbar-thumb: #cbd5e1;
+            }
+            .dark {
+                /* Dracula Dark Mode */
+                --theme-bg: #282a36; /* background-dark */
+                --theme-bg-gradient: linear-gradient(135deg, #282a36, #1a1b24);
+                --theme-surface: #44475a; /* surface */
+                
+                --theme-text-main: #f8f8f2;
+                --theme-text-muted: #6272a4;
+                --theme-text-reverse: #282a36; /* reverse text on primary bg */
+                
+                --theme-border: #6272a4;
+                
+                --theme-primary: #bd93f9;
+                --theme-primary-hover: #aa79f8;
+                --theme-primary-alpha: rgba(189, 147, 249, 0.1);
+                --theme-primary-alpha-high: rgba(189, 147, 249, 0.2);
+                
+                --theme-secondary: #8be9fd;
+                --theme-secondary-alpha: rgba(139, 233, 253, 0.1);
+                
+                /* Hero Background Overlay (Dark Mode) */
+                --hero-overlay-alpha1: rgba(40, 42, 54, 0.85);
+                --hero-overlay-alpha2: rgba(40, 42, 54, 0.95);
+                
+                --theme-btn-join-text: #282a36;
+                --theme-btn-create-overlay: #f8f8f2;
+
+                /* Icon Drop Shadows (Dark Mode glows) */
+                --icon-shadow-primary: 0 0 8px rgba(189, 147, 249, 0.5);
+                --icon-shadow-primary-strong: 0 0 5px rgba(189, 147, 249, 0.8);
+                --icon-shadow-secondary: 0 0 8px rgba(139, 233, 253, 0.5);
+                --icon-shadow-ping: 0 0 5px rgba(139, 233, 253, 1);
+                
+                --scrollbar-thumb: #6272a4;
+            }
+            body {
+                background-color: var(--theme-bg);
+                background-image: var(--theme-bg-gradient);
+                background-attachment: fixed;
+                color: var(--theme-text-main);
+                font-family: 'Inter', sans-serif;
+                transition: background-color 0.3s ease, color 0.3s ease;
+            }
+            
+            /* Custom utility mapping for hero background */
+            .hero-bg {
+                background-image: linear-gradient(var(--hero-overlay-alpha1), var(--hero-overlay-alpha2)), url('https://lh3.googleusercontent.com/aida-public/AB6AXuAYvk94z9Puin7D56bIMyLeSAk5tcy1ngjyuhY-4n40Ak248UKC0jt_Unv1phZf5lUJ8EPqnNaNYbMlk4BhudcFNWpZoWV7YVfKENPQlR_Plva51-nc35v68RbSY5rtBeubzwdYwbw7coolTpchXXn5ReIaPEb40fZ35C6HdCDdKDt_0tzgFSIlEg9kPgC2uJftTXaHj3GAptUA_Fdq2pb44Y0r8Lwq9ulWmNUW9mvEjda4LKFYqLsKvAYTCuPOgrnfRlvzwwO_w8U');
+            }
+        }
+    </style>
+
+  <script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          colors: {
+            theme: {
+              bg: "var(--theme-bg)",
+              surface: "var(--theme-surface)",
+
+              "text-main": "var(--theme-text-main)",
+              "text-muted": "var(--theme-text-muted)",
+
+              border: "var(--theme-border)",
+
+              primary: "var(--theme-primary)",
+              "primary-hover": "var(--theme-primary-hover)",
+
+              secondary: "var(--theme-secondary)",
+
+              "btn-join-txt": "var(--theme-btn-join-text)",
+              "btn-create-txt": "var(--theme-btn-create-overlay)"
+            }
+          },
+          backgroundColor: {
+            "primary-alpha": "var(--theme-primary-alpha)",
+            "secondary-alpha": "var(--theme-secondary-alpha)"
+          },
+          fontFamily: {
+            "display": ["Inter", "sans-serif"]
+          },
+        },
+      },
+    }
+  </script>
+  <script>
+    if (localStorage.getItem('sharedAppTheme') === 'dark' || (!('sharedAppTheme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+      document.documentElement.classList.add('dark');
+    }
+  </script>
+</head>
+
+<body class="font-display overflow-x-hidden min-h-screen bg-theme-bg transition-colors duration-300">
+
+  <!-- Theme Toggle Button -->
+  <button id="themeToggle"
+    class="fixed bottom-6 right-6 z-50 p-3 rounded-full bg-theme-surface border border-theme-border shadow-md hover:scale-110 transition-transform text-theme-primary flex items-center justify-center cursor-pointer">
+    <span class="material-symbols-outlined" id="themeIcon">light_mode</span>
+  </button>
+
+  <div class="relative flex min-h-screen w-full flex-col">
+    <header
+      class="flex items-center justify-center whitespace-nowrap border-b border-solid border-theme-border bg-theme-surface w-full sticky top-0 z-50 shadow-sm transition-colors duration-300">
+      <div class="flex items-center justify-between w-full max-w-[1440px] px-4 md:px-10 py-4 relative">
+        <a href="home.html"
+          class="flex items-center gap-4 text-theme-text-main hover:opacity-80 transition-all duration-300 z-10">
+          <div
+            class="size-10 bg-theme-primary rounded-xl flex items-center justify-center transition-colors duration-300">
+            <span class="material-symbols-outlined text-theme-text-reverse text-2xl transition-colors duration-300"
+              style="filter: drop-shadow(var(--icon-shadow-primary))">directions_car</span>
+          </div>
+          <h2
+            class="text-theme-text-main text-xl font-bold leading-tight tracking-[-0.015em] transition-colors duration-300">
+            RideShare</h2>
+        </a>
+
+        <div class="flex items-center gap-8 ml-auto">
+          <div class="flex items-center gap-8 hidden md:flex">
+            <a class="text-theme-primary text-sm font-bold leading-normal border-b-2 border-theme-primary pb-1 transition-colors duration-300"
+              href="home.html">Home</a>
+            <a class="text-theme-text-main hover:text-theme-primary transition-colors text-sm font-medium leading-normal duration-300"
+              href="find-ride.html">Find Ride</a>
+            <a class="text-theme-text-main hover:text-theme-primary transition-colors text-sm font-medium leading-normal duration-300"
+              href="my-rides.html">My Rides</a>
+          </div>
+
+          <div class="flex items-center gap-4 z-10 relative group cursor-pointer">
+            <div
+              class="flex items-center justify-center rounded-full size-10 bg-theme-primary/10 text-theme-primary transition-colors duration-300 hover:bg-theme-primary/20">
+              <span class="material-symbols-outlined text-2xl">person</span>
+            </div>
+
+            <!-- Dropdown Menu -->
+            <div
+              class="absolute right-0 top-full mt-2 w-48 bg-theme-surface border border-theme-border rounded-xl shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 flex flex-col overflow-hidden">
+              <a href="profile.html"
+                class="px-4 py-3 text-sm font-medium text-theme-text-main hover:bg-theme-primary/10 hover:text-theme-primary transition-colors flex items-center gap-2">
+                <span class="material-symbols-outlined text-lg">person</span>
+                Profile
+              </a>
+              <div class="h-px bg-theme-border w-full"></div>
+              <a href="#" id="signOutBtn"
+                class="px-4 py-3 text-sm font-medium text-red-500 hover:bg-red-500/10 transition-colors flex items-center gap-2">
+                <span class="material-symbols-outlined text-lg">logout</span>
+                Sign Out
+              </a>
+            </div>
+          </div>
+        </div>
+    </header>
+
+    <div class="layout-container flex h-full grow flex-col px-4 md:px-10 lg:px-20 py-8 max-w-[1440px] mx-auto w-full">
+      <div class="flex flex-col lg:flex-row gap-8">
+        <div class="flex flex-col flex-1 gap-8">
+
+          <!-- Main Banner -->
+          <div
+            class="relative flex flex-col items-center justify-center rounded-2xl bg-center bg-no-repeat bg-cover min-h-[400px] overflow-hidden shadow-md hero-bg transition-[background-image] duration-300">
+            <div class="z-10 flex flex-col items-center p-8 text-center max-w-2xl">
+              <h1
+                class="text-theme-text-main text-4xl md:text-5xl font-extrabold leading-tight tracking-[-0.02em] mb-4 transition-colors duration-300">
+                Your Campus, Your Ride</h1>
+              <p
+                class="text-theme-text-muted text-lg md:text-xl font-medium leading-normal mb-8 transition-colors duration-300">
+                Share cab expenses with fellow students. Safe, affordable, and community-driven.</p>
+              <div class="flex flex-col sm:flex-row gap-4 w-full justify-center">
+                <button
+                  class="flex min-w-[140px] cursor-pointer items-center justify-center overflow-hidden rounded-full h-12 px-8 bg-theme-primary hover:bg-theme-primary-hover transition-colors text-theme-btn-join-txt text-base font-bold leading-normal tracking-[0.015em] shadow-md hover:shadow-lg duration-300">
+                  <span class="truncate">Join a Pool</span>
+                </button>
+                <button
+                  class="flex min-w-[140px] cursor-pointer items-center justify-center overflow-hidden rounded-full h-12 px-8 bg-transparent border-2 border-theme-primary text-theme-btn-create-txt text-base font-bold leading-normal tracking-[0.015em] transition-colors duration-300"
+                  style="transition: background-color 0.2s"
+                  onmouseover="this.style.backgroundColor='var(--theme-primary-alpha-high)'"
+                  onmouseout="this.style.backgroundColor='transparent'">
+                  <span class="truncate">Create a Pool</span>
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Popular Destinations -->
+          <div class="flex flex-col gap-4">
+            <h2
+              class="text-theme-text-main text-[22px] font-bold leading-tight tracking-[-0.015em] transition-colors duration-300">
+              Popular Destinations</h2>
+            <div class="grid grid-cols-[repeat(auto-fit,minmax(250px,1fr))] gap-4">
+              <div
+                class="flex flex-col gap-3 rounded-xl bg-theme-surface p-6 shadow-sm border border-theme-border hover:shadow-md transition-all duration-300">
+                <div
+                  class="text-theme-secondary bg-secondary-alpha p-3 rounded-full flex items-center justify-center w-12 h-12 mb-2 transition-colors duration-300">
+                  <span class="material-symbols-outlined text-2xl transition-all duration-300"
+                    style="filter: drop-shadow(var(--icon-shadow-secondary))">directions_bus</span>
+                </div>
+                <h3 class="text-theme-text-main text-lg font-bold leading-tight transition-colors duration-300">
+                  Kilambakkam Bus Stand</h3>
+              </div>
+              <div
+                class="flex flex-col gap-3 rounded-xl bg-theme-surface p-6 shadow-sm border border-theme-border hover:shadow-md transition-all duration-300">
+                <div
+                  class="text-theme-primary bg-primary-alpha p-3 rounded-full flex items-center justify-center w-12 h-12 mb-2 transition-colors duration-300">
+                  <span class="material-symbols-outlined text-2xl transition-all duration-300"
+                    style="filter: drop-shadow(var(--icon-shadow-primary))">flight_takeoff</span>
+                </div>
+                <h3 class="text-theme-text-main text-lg font-bold leading-tight transition-colors duration-300">Chennai
+                  Airport</h3>
+              </div>
+              <div
+                class="flex flex-col gap-3 rounded-xl bg-theme-surface p-6 shadow-sm border border-theme-border hover:shadow-md transition-all duration-300">
+                <div
+                  class="text-theme-secondary bg-secondary-alpha p-3 rounded-full flex items-center justify-center w-12 h-12 mb-2 transition-colors duration-300">
+                  <span class="material-symbols-outlined text-2xl transition-all duration-300"
+                    style="filter: drop-shadow(var(--icon-shadow-secondary))">train</span>
+                </div>
+                <h3 class="text-theme-text-main text-lg font-bold leading-tight transition-colors duration-300">MGR
+                  Central Railway Station</h3>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Live Activity Sidebar -->
+        <div class="flex flex-col w-full lg:w-[320px] shrink-0 gap-4">
+          <div
+            class="bg-theme-surface rounded-xl shadow-sm border border-theme-border p-5 flex flex-col h-full max-h-[600px] transition-colors duration-300">
+            <div class="flex items-center gap-2 mb-6 pb-4 border-b border-theme-border transition-colors duration-300">
+              <span class="material-symbols-outlined text-theme-primary text-xl relative transition-all duration-300"
+                style="filter: drop-shadow(var(--icon-shadow-primary-strong))">
+                <span
+                  class="absolute inline-flex h-2 w-2 rounded-full bg-theme-secondary top-0 right-0 animate-ping transition-all duration-300"
+                  style="box-shadow: var(--icon-shadow-ping)"></span>
+                sensors
+              </span>
+              <h2
+                class="text-theme-text-main text-lg font-bold leading-tight tracking-[-0.015em] transition-colors duration-300">
+                Live Activity</h2>
+            </div>
+
+            <div
+              id="liveActivityContainer"
+              class="flex flex-col gap-3 overflow-y-auto pr-2 custom-scrollbar text-theme-muted text-sm text-center py-4">
+              <!-- Live Activity Entries would be populated here -->
+              <div class="animate-pulse">Loading live activity...</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <style>
+    /* Dynamic Custom Scrollbar */
+    .custom-scrollbar::-webkit-scrollbar {
+      width: 6px;
+    }
+
+    .custom-scrollbar::-webkit-scrollbar-track {
+      background: transparent;
+    }
+
+    .custom-scrollbar::-webkit-scrollbar-thumb {
+      background-color: var(--scrollbar-thumb);
+      border-radius: 20px;
+      transition: background-color 0.3s ease;
+    }
+  </style>
+
+  <script>
+    const themeToggle = document.getElementById('themeToggle');
+    const themeIcon = document.getElementById('themeIcon');
+    const htmlElement = document.documentElement;
+
+    // Load theme from localStorage or default OS preference
+    if (localStorage.getItem('sharedAppTheme') === 'dark' || (!('sharedAppTheme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+      htmlElement.classList.add('dark');
+      themeIcon.textContent = 'dark_mode';
+    } else {
+      htmlElement.classList.remove('dark');
+      themeIcon.textContent = 'light_mode';
+    }
+
+    // Toggle button logic
+    themeToggle.addEventListener('click', () => {
+      htmlElement.classList.toggle('dark');
+
+      if (htmlElement.classList.contains('dark')) {
+        localStorage.setItem('sharedAppTheme', 'dark');
+        themeIcon.textContent = 'dark_mode';
+      } else {
+        localStorage.setItem('sharedAppTheme', 'light');
+        themeIcon.textContent = 'light_mode';
+      }
+    });
+  </script>
+
+  <script type="module">
+    import { db, auth } from './firebase-init.js';
+    import { collection, query, orderBy, limit, onSnapshot } from "https://www.gstatic.com/firebasejs/12.11.0/firebase-firestore.js";
+
+    // --- Sign Out Logic ---
+    const signOutBtn = document.getElementById('signOutBtn');
+    if (signOutBtn) {
+        signOutBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            auth.signOut().then(() => {
+                localStorage.removeItem('rideshare_active_user');
+                window.location.href = 'login.html';
+            });
+        });
+    }
+
+    // --- Live Activity Implementation ---
+    const liveActivityContainer = document.getElementById('liveActivityContainer');
+    
+    if (liveActivityContainer) {
+        // Query the 10 most recent rides across all users
+        const qRides = query(collection(db, "rides"), orderBy("createdAt", "desc"), limit(10));
+        
+        onSnapshot(qRides, (snapshot) => {
+            if (snapshot.empty) {
+                liveActivityContainer.innerHTML = '<p class="mt-4">No recent activity.</p>';
+                return;
+            }
+            
+            let htmlContent = '';
+            snapshot.forEach((doc) => {
+                const data = doc.data();
+                let timeStr = 'Just now';
+                if (data.createdAt) {
+                    const dateObj = new Date(data.createdAt.toMillis());
+                    timeStr = dateObj.toLocaleDateString([], { month: 'short', day: 'numeric' }) + ' • ' + dateObj.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'});
+                }
+                
+                const entryHtml = `
+                <div class="bg-theme-surface border border-theme-border rounded-xl p-4 shadow-sm text-left hover:border-theme-primary/50 transition-colors duration-300">
+                    <div class="flex items-center justify-between mb-2">
+                        <div class="flex items-center gap-2">
+                            <div class="w-2 h-2 rounded-full bg-green-500 animate-pulse"></div>
+                            <span class="text-xs font-bold text-theme-primary">New Pool Created</span>
+                        </div>
+                        <span class="text-[10px] text-theme-muted font-medium">${timeStr}</span>
+                    </div>
+                    <p class="text-[13px] font-bold text-theme-heading flex items-center gap-1.5 truncate">
+                        ${data.pickup} 
+                        <span class="material-symbols-outlined text-[12px] text-theme-muted">arrow_forward</span> 
+                        ${data.destination}
+                    </p>
+                    <div class="mt-2 text-[11px] text-theme-muted font-medium flex items-center gap-2">
+                        <span class="flex items-center gap-1 bg-theme-primary/10 text-theme-primary px-2 py-0.5 rounded">
+                            <span class="material-symbols-outlined text-[12px]">event</span> ${data.date}
+                        </span>
+                        <span class="flex items-center gap-1 bg-theme-secondary/10 text-theme-secondary px-2 py-0.5 rounded">
+                            <span class="material-symbols-outlined text-[12px]">group</span> ${data.seats} Seats
+                        </span>
+                    </div>
+                </div>`;
+                htmlContent += entryHtml;
+            });
+            liveActivityContainer.innerHTML = htmlContent;
+        }, (error) => {
+            console.error("Error loading live activity:", error);
+            liveActivityContainer.innerHTML = '<p class="text-red-500 mt-4">Failed to load activity.</p>';
+        });
+    }
+  </script>
+
+</body>
+
+</html>
