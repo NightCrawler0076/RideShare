@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+  <title>RideShare Home Community - Theme Supported</title>
+
+  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Information:wght@400;500;600;700&display=swap"
+    rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap"
+    rel="stylesheet" />
+
+  <style type="text/tailwindcss">
+    @layer base {
+            :root {
+                /* Light Mode */
+                --theme-bg: #f8fafc; /* background-light */
+                --theme-surface: #ffffff; /* surface */
+                
+                --theme-text-main: #1e293b;
+                --theme-text-muted: #64748b;
+                --theme-text-reverse: #ffffff; /* used for button text on primary bg */
+                
+                --theme-border: #e2e8f0;
+                
+                --theme-primary: #8b5cf6;
+                --theme-primary-hover: #7c3aed;
+                --theme-primary-alpha: rgba(139, 92, 246, 0.1); /* primary/10 */
+                --theme-primary-alpha-high: rgba(139, 92, 246, 0.05); /* hover:primary/5 */
+                
+                --theme-secondary: #3b82f6;
+                --theme-secondary-alpha: rgba(59, 130, 246, 0.1); /* secondary/10 */
+                
+                /* Hero Background Overlay (Light Mode) */
+                --hero-overlay-alpha1: rgba(248, 250, 252, 0.85);
+                --hero-overlay-alpha2: rgba(248, 250, 252, 0.95);
+
+                /* Text specific for Hero CTA buttons */
+                --theme-btn-join-text: #ffffff;
+                --theme-btn-create-overlay: #1e293b;
+                
+                /* Icon Drop Shadows (Light mode - practically none/default) */
+                --icon-shadow-primary: none;
+                --icon-shadow-secondary: none;
+                --icon-shadow-ping: none;
+                
+                --scrollbar-thumb: #cbd5e1;
+            }
+            .dark {
+                /* Dracula Dark Mode */
+                --theme-bg: #282a36; /* background-dark */
+                --theme-surface: #44475a; /* surface */
+                
+                --theme-text-main: #f8f8f2;
+                --theme-text-muted: #6272a4;
+                --theme-text-reverse: #282a36; /* reverse text on primary bg */
+                
+                --theme-border: #6272a4;
+                
+                --theme-primary: #bd93f9;
+                --theme-primary-hover: #aa79f8;
+                --theme-primary-alpha: rgba(189, 147, 249, 0.1);
+                --theme-primary-alpha-high: rgba(189, 147, 249, 0.2);
+                
+                --theme-secondary: #8be9fd;
+                --theme-secondary-alpha: rgba(139, 233, 253, 0.1);
+                
+                /* Hero Background Overlay (Dark Mode) */
+                --hero-overlay-alpha1: rgba(40, 42, 54, 0.85);
+                --hero-overlay-alpha2: rgba(40, 42, 54, 0.95);
+                
+                --theme-btn-join-text: #282a36;
+                --theme-btn-create-overlay: #f8f8f2;
+
+                /* Icon Drop Shadows (Dark Mode glows) */
+                --icon-shadow-primary: 0 0 8px rgba(189, 147, 249, 0.5);
+                --icon-shadow-primary-strong: 0 0 5px rgba(189, 147, 249, 0.8);
+                --icon-shadow-secondary: 0 0 8px rgba(139, 233, 253, 0.5);
+                --icon-shadow-ping: 0 0 5px rgba(139, 233, 253, 1);
+                
+                --scrollbar-thumb: #6272a4;
+            }
+            body {
+                background-color: var(--theme-bg);
+                color: var(--theme-text-main);
+                font-family: 'Inter', sans-serif;
+                transition: background-color 0.3s ease, color 0.3s ease;
+            }
+            
+            /* Custom utility mapping for hero background */
+            .hero-bg {
+                background-image: linear-gradient(var(--hero-overlay-alpha1), var(--hero-overlay-alpha2)), url('https://lh3.googleusercontent.com/aida-public/AB6AXuAYvk94z9Puin7D56bIMyLeSAk5tcy1ngjyuhY-4n40Ak248UKC0jt_Unv1phZf5lUJ8EPqnNaNYbMlk4BhudcFNWpZoWV7YVfKENPQlR_Plva51-nc35v68RbSY5rtBeubzwdYwbw7coolTpchXXn5ReIaPEb40fZ35C6HdCDdKDt_0tzgFSIlEg9kPgC2uJftTXaHj3GAptUA_Fdq2pb44Y0r8Lwq9ulWmNUW9mvEjda4LKFYqLsKvAYTCuPOgrnfRlvzwwO_w8U');
+            }
+        }
+    </style>
+
+  <script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          colors: {
+            theme: {
+              bg: "var(--theme-bg)",
+              surface: "var(--theme-surface)",
+
+              "text-main": "var(--theme-text-main)",
+              "text-muted": "var(--theme-text-muted)",
+
+              border: "var(--theme-border)",
+
+              primary: "var(--theme-primary)",
+              "primary-hover": "var(--theme-primary-hover)",
+
+              secondary: "var(--theme-secondary)",
+
+              "btn-join-txt": "var(--theme-btn-join-text)",
+              "btn-create-txt": "var(--theme-btn-create-overlay)"
+            }
+          },
+          backgroundColor: {
+            "primary-alpha": "var(--theme-primary-alpha)",
+            "secondary-alpha": "var(--theme-secondary-alpha)"
+          },
+          fontFamily: {
+            "display": ["Inter", "sans-serif"]
+          },
+        },
+      },
+    }
+  </script>
+</head>
+
+<body class="font-display overflow-x-hidden min-h-screen bg-theme-bg transition-colors duration-300">
+
+  <!-- Theme Toggle Button -->
+  <button id="themeToggle"
+    class="fixed bottom-6 right-6 z-50 p-3 rounded-full bg-theme-surface border border-theme-border shadow-md hover:scale-110 transition-transform text-theme-primary flex items-center justify-center cursor-pointer">
+    <span class="material-symbols-outlined" id="themeIcon">light_mode</span>
+  </button>
+
+  <div class="relative flex min-h-screen w-full flex-col">
+    <header
+      class="flex items-center justify-center whitespace-nowrap border-b border-solid border-theme-border bg-theme-surface w-full sticky top-0 z-50 shadow-sm transition-colors duration-300">
+      <div class="flex items-center justify-between w-full max-w-[1440px] px-4 md:px-10 py-4 relative">
+        <div class="flex items-center gap-4 text-theme-text-main transition-colors duration-300 z-10">
+          <span
+            class="material-symbols-outlined text-theme-primary text-2xl transition-colors duration-300">directions_car</span>
+          <h2
+            class="text-theme-text-main text-xl font-bold leading-tight tracking-[-0.015em] transition-colors duration-300">
+            RideShare</h2>
+        </div>
+
+        <nav class="hidden md:flex items-center gap-9 absolute left-1/2 -translate-x-1/2 z-0">
+          <a class="text-theme-primary text-sm font-bold leading-normal border-b-2 border-theme-primary pb-1 transition-colors duration-300"
+            href="home.html">Home</a>
+          <a class="text-theme-text-main hover:text-theme-primary transition-colors text-sm font-medium leading-normal duration-300"
+            href="find-ride.html">Find Ride</a>
+          <a class="text-theme-text-main hover:text-theme-primary transition-colors text-sm font-medium leading-normal duration-300"
+            href="my-rides.html">My Rides</a>
+          <a class="text-theme-text-main hover:text-theme-primary transition-colors text-sm font-medium leading-normal duration-300"
+            href="profile.html">Profile</a>
+        </nav>
+
+        <div class="flex items-center gap-4 z-10">
+          <div
+            class="bg-center bg-no-repeat aspect-square bg-cover rounded-full size-10 border border-theme-border transition-colors duration-300"
+            data-alt="User profile avatar"
+            style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuDtJsR7quHk5f90trGrfh107-2XwrLmOkmxDgzK-jRCdSIEhcD2_VmUQc7nwkGE4vhGHYFjnMQLif3FxarmSXKkMNZuwUyRkLG1WV2dPtlNpOEpxbon4qamxoKC6GSCq9s_s013l8xXRQduWz0-kQLR_LGdRrJReM80vVe9jnFdhmrV792hKNOK58AeB9XaogoZM5wUwUBLfSRPS8Tg0LB0jooCFCk8xUNF7PpEHhCk4ZRL2jP0a1K-3cTFGj8FSSorR3DbxpNCLw");'>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <div class="layout-container flex h-full grow flex-col px-4 md:px-10 lg:px-20 py-8 max-w-[1440px] mx-auto w-full">
+      <div class="flex flex-col lg:flex-row gap-8">
+        <div class="flex flex-col flex-1 gap-8">
+
+          <!-- Hero Banner -->
+          <div
+            class="relative flex flex-col items-center justify-center rounded-2xl bg-center bg-no-repeat bg-cover min-h-[400px] overflow-hidden shadow-md hero-bg transition-[background-image] duration-300">
+            <div class="z-10 flex flex-col items-center p-8 text-center max-w-2xl">
+              <h1
+                class="text-theme-text-main text-4xl md:text-5xl font-extrabold leading-tight tracking-[-0.02em] mb-4 transition-colors duration-300">
+                Your Campus, Your Ride</h1>
+              <p
+                class="text-theme-text-muted text-lg md:text-xl font-medium leading-normal mb-8 transition-colors duration-300">
+                Share cab expenses with fellow students. Safe, affordable, and community-driven.</p>
+              <div class="flex flex-col sm:flex-row gap-4 w-full justify-center">
+                <button
+                  class="flex min-w-[140px] cursor-pointer items-center justify-center overflow-hidden rounded-full h-12 px-8 bg-theme-primary hover:bg-theme-primary-hover transition-colors text-theme-btn-join-txt text-base font-bold leading-normal tracking-[0.015em] shadow-md hover:shadow-lg duration-300">
+                  <span class="truncate">Join a Pool</span>
+                </button>
+                <!-- Note: The hover logic via a CSS variable mapping for background color dynamically changes per theme -->
+                <button
+                  class="flex min-w-[140px] cursor-pointer items-center justify-center overflow-hidden rounded-full h-12 px-8 bg-transparent border-2 border-theme-primary text-theme-btn-create-txt text-base font-bold leading-normal tracking-[0.015em] transition-colors duration-300"
+                  style="transition: background-color 0.2s"
+                  onmouseover="this.style.backgroundColor='var(--theme-primary-alpha-high)'"
+                  onmouseout="this.style.backgroundColor='transparent'">
+                  <span class="truncate">Create a Pool</span>
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Popular Destinations -->
+          <div class="flex flex-col gap-4">
+            <h2
+              class="text-theme-text-main text-[22px] font-bold leading-tight tracking-[-0.015em] transition-colors duration-300">
+              Popular Destinations</h2>
+            <div class="grid grid-cols-[repeat(auto-fit,minmax(250px,1fr))] gap-4">
+              <div
+                class="flex flex-col gap-3 rounded-xl bg-theme-surface p-6 shadow-sm border border-theme-border hover:shadow-md transition-all duration-300">
+                <div
+                  class="text-theme-secondary bg-secondary-alpha p-3 rounded-full flex items-center justify-center w-12 h-12 mb-2 transition-colors duration-300">
+                  <span class="material-symbols-outlined text-2xl transition-all duration-300"
+                    style="filter: drop-shadow(var(--icon-shadow-secondary))">directions_bus</span>
+                </div>
+                <h3 class="text-theme-text-main text-lg font-bold leading-tight transition-colors duration-300">
+                  Kilambakkam Bus Stand</h3>
+                <p class="text-theme-text-muted text-sm font-medium transition-colors duration-300">15 pools active</p>
+              </div>
+              <div
+                class="flex flex-col gap-3 rounded-xl bg-theme-surface p-6 shadow-sm border border-theme-border hover:shadow-md transition-all duration-300">
+                <div
+                  class="text-theme-primary bg-primary-alpha p-3 rounded-full flex items-center justify-center w-12 h-12 mb-2 transition-colors duration-300">
+                  <span class="material-symbols-outlined text-2xl transition-all duration-300"
+                    style="filter: drop-shadow(var(--icon-shadow-primary))">flight_takeoff</span>
+                </div>
+                <h3 class="text-theme-text-main text-lg font-bold leading-tight transition-colors duration-300">Chennai
+                  Airport</h3>
+                <p class="text-theme-text-muted text-sm font-medium transition-colors duration-300">8 pools active</p>
+              </div>
+              <div
+                class="flex flex-col gap-3 rounded-xl bg-theme-surface p-6 shadow-sm border border-theme-border hover:shadow-md transition-all duration-300">
+                <div
+                  class="text-theme-secondary bg-secondary-alpha p-3 rounded-full flex items-center justify-center w-12 h-12 mb-2 transition-colors duration-300">
+                  <span class="material-symbols-outlined text-2xl transition-all duration-300"
+                    style="filter: drop-shadow(var(--icon-shadow-secondary))">train</span>
+                </div>
+                <h3 class="text-theme-text-main text-lg font-bold leading-tight transition-colors duration-300">MGR
+                  Central Railway Station</h3>
+                <p class="text-theme-text-muted text-sm font-medium transition-colors duration-300">12 pools active</p>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Live Activity Sidebar -->
+        <div class="flex flex-col w-full lg:w-[320px] shrink-0 gap-4">
+          <div
+            class="bg-theme-surface rounded-xl shadow-sm border border-theme-border p-5 flex flex-col h-full max-h-[600px] transition-colors duration-300">
+            <div class="flex items-center gap-2 mb-6 pb-4 border-b border-theme-border transition-colors duration-300">
+              <span class="material-symbols-outlined text-theme-primary text-xl relative transition-all duration-300"
+                style="filter: drop-shadow(var(--icon-shadow-primary-strong))">
+                <span
+                  class="absolute inline-flex h-2 w-2 rounded-full bg-theme-secondary top-0 right-0 animate-ping transition-all duration-300"
+                  style="box-shadow: var(--icon-shadow-ping)"></span>
+                sensors
+              </span>
+              <h2
+                class="text-theme-text-main text-lg font-bold leading-tight tracking-[-0.015em] transition-colors duration-300">
+                Live Activity</h2>
+            </div>
+
+            <div class="flex flex-col gap-5 overflow-y-auto pr-2 custom-scrollbar">
+              <div class="flex items-start gap-3">
+                <div class="bg-center bg-no-repeat aspect-square bg-cover rounded-full size-8 shrink-0 mt-1"
+                  style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuDBZ8odZ-sQZ-8WBi9tofonyulQqR07I1Qg4q2f-0-R0nuzg7eqCMvcv3_ymmSzHNGkt8nwPOFQt1kgz0WjwRpINHOF9mnov71eY5BsoWRHYEMKIrWf6mxm3epqD_2OHb2csmxkjdq3qGEQlJlHneT5DzsZ342zOzsUVeir9JJ5rtqJYEu8mBSdEMjsMVNqPd_aQZm7rntIBMrc60dL8dfS-NYV9RKmkGZhiuHUFF1um7wqreLxF9-gMUjwy4m0KWg0AsbcWrNVASA");'>
+                </div>
+                <div class="flex flex-col">
+                  <p class="text-theme-text-main text-sm font-medium transition-colors duration-300"><span
+                      class="font-bold">Sarah</span> joined a pool to <span
+                      class="font-bold text-theme-primary transition-colors duration-300">Airport</span></p>
+                  <p class="text-theme-text-muted text-xs mt-0.5 transition-colors duration-300">2 mins ago</p>
+                </div>
+              </div>
+              <div class="flex items-start gap-3">
+                <div class="bg-center bg-no-repeat aspect-square bg-cover rounded-full size-8 shrink-0 mt-1"
+                  style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuBrUEFUT3kRJNVPaCkJ_wYRbibxqF_yzYlt491JPsisfCQ_b0ulPVv-T000gGpboduviD5x--7ShkHJT-g1_aYS_Z6uRvQVb182xSvdJ96vFRm0o9JCiBBGjJHZwWsdHBIdKveV2ecTfrfo_0yzb9dBAqVc3LnU_UFCyx3dYaXRvMadwKldnMXrSHUW-8fYsNzd9VcL11p7BqYljhZcDVdxdflvsD9WG4Qo70yaDUpa0T9Juamk7M3bOe6xUmS66v-i5KtzXE54W0pw");'>
+                </div>
+                <div class="flex flex-col">
+                  <p class="text-theme-text-main text-sm font-medium transition-colors duration-300"><span
+                      class="font-bold">Mike</span> created a pool to <span
+                      class="font-bold text-theme-secondary transition-colors duration-300">Central Station</span></p>
+                  <p class="text-theme-text-muted text-xs mt-0.5 transition-colors duration-300">5 mins ago</p>
+                </div>
+              </div>
+              <div class="flex items-start gap-3">
+                <div class="bg-center bg-no-repeat aspect-square bg-cover rounded-full size-8 shrink-0 mt-1"
+                  style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuDre9ryiyHK5UeVwE0Nmd1Hgm5xXEWf8FfZjkCy2cOQKTNtpGNvp1ZxvQ4ihdIkjUMFJCjTaLevh8tuxSr_x6-H0vKVGscrv4OTRPwIMnBLA4jk2iXsOHhDKwfO9RiGpwM7SmaKemiobWulzW7zOIsRGJ0h7GChb_Fmg7CHejLDmSjzLFupP8llH4m29zrimXY0g604w0dojD5mb_ISGqC7F3dS7oRADU--JG3zfF1ymhJYxLE64uoxGeGq6RBPZyjCAlGIs2lrDjQ");'>
+                </div>
+                <div class="flex flex-col">
+                  <p class="text-theme-text-main text-sm font-medium transition-colors duration-300"><span
+                      class="font-bold">Priya</span> joined a pool to <span
+                      class="font-bold text-theme-primary transition-colors duration-300">Kilambakkam</span></p>
+                  <p class="text-theme-text-muted text-xs mt-0.5 transition-colors duration-300">12 mins ago</p>
+                </div>
+              </div>
+              <div class="flex items-start gap-3">
+                <div class="bg-center bg-no-repeat aspect-square bg-cover rounded-full size-8 shrink-0 mt-1"
+                  style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuBrQs0H8N-Y1zLAM3q1GdyUOJ2jBNDzAANtc3rlI-9fkGnMBH8u0AK-Gpc5ijjbppSJWvZGQMJunIFC2RgFpNp3xGnNw5hv5Y50rmpc_FSZ1WrHUYdRKfuN7ArCK5rnJDVO20tpbKrVFlxUz2ReY50HMPjehK2xAPAUcxvJyzJ_9GIeNNo7wBnXZN6Irbj3xhd4ViK1X_MfVFEwA0py24tHFC7R3kzf6rWL7vRs1Mt4n3YqVKlSbgqwk4kcjn5dveaM9vYTk_OLVL0U");'>
+                </div>
+                <div class="flex flex-col">
+                  <p class="text-theme-text-main text-sm font-medium transition-colors duration-300"><span
+                      class="font-bold">Rahul</span> created a pool to <span
+                      class="font-bold text-theme-secondary transition-colors duration-300">Airport</span></p>
+                  <p class="text-theme-text-muted text-xs mt-0.5 transition-colors duration-300">25 mins ago</p>
+                </div>
+              </div>
+              <div class="flex items-start gap-3">
+                <div class="bg-center bg-no-repeat aspect-square bg-cover rounded-full size-8 shrink-0 mt-1"
+                  style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuBz8E7b1uO7EjafCniYjmhb_vWXiHhRACMN8cDiX054O-mCpPreKf5hG6uXJnenNhVkOY-nF3r0H0AUoWGvkZsOi1Cj6rEX6dWqdSRSms_MowHJDSCRfwWt4Q6K1hV4NEdH1AMiaohq0zWaBs7qU7UHcP982vFa3ClkF4uiDZ2xmiV3x5paUiaE0GBCNmJn8kv8p9NidzKEoRuoUX3DOqWbv-0ZI2k2RFda7meWzryORy6HI6A9Bf0vGwA9j5oN_bfw6IEBB6jqTI0");'>
+                </div>
+                <div class="flex flex-col">
+                  <p class="text-theme-text-main text-sm font-medium transition-colors duration-300"><span
+                      class="font-bold">Anita</span> joined a pool to <span
+                      class="font-bold text-theme-primary transition-colors duration-300">Central Station</span></p>
+                  <p class="text-theme-text-muted text-xs mt-0.5 transition-colors duration-300">40 mins ago</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <style>
+    /* Dynamic Custom Scrollbar */
+    .custom-scrollbar::-webkit-scrollbar {
+      width: 6px;
+    }
+
+    .custom-scrollbar::-webkit-scrollbar-track {
+      background: transparent;
+    }
+
+    .custom-scrollbar::-webkit-scrollbar-thumb {
+      background-color: var(--scrollbar-thumb);
+      border-radius: 20px;
+      transition: background-color 0.3s ease;
+    }
+  </style>
+
+  <script>
+    const themeToggle = document.getElementById('themeToggle');
+    const themeIcon = document.getElementById('themeIcon');
+    const htmlElement = document.documentElement;
+
+    // Load theme from localStorage or default OS preference
+    if (localStorage.getItem('sharedAppTheme') === 'dark' || (!('sharedAppTheme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+      htmlElement.classList.add('dark');
+      themeIcon.textContent = 'dark_mode';
+    } else {
+      htmlElement.classList.remove('dark');
+      themeIcon.textContent = 'light_mode';
+    }
+
+    // Toggle button logic
+    themeToggle.addEventListener('click', () => {
+      htmlElement.classList.toggle('dark');
+
+      if (htmlElement.classList.contains('dark')) {
+        localStorage.setItem('sharedAppTheme', 'dark');
+        themeIcon.textContent = 'dark_mode';
+      } else {
+        localStorage.setItem('sharedAppTheme', 'light');
+        themeIcon.textContent = 'light_mode';
+      }
+    });
+  </script>
+
+</body>
+
+</html>

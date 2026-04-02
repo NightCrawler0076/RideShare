@@ -1,0 +1,490 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+  <title>My Rides Dashboard - RideShare</title>
+
+  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap"
+    rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap"
+    rel="stylesheet" />
+
+  <style type="text/tailwindcss">
+    @layer base {
+            :root {
+                /* Light Mode */
+                --theme-bg: #ffffff;
+                --theme-surface: #ffffff;
+                --theme-header-bg: #f0f7ff;
+                --theme-header-border: #eff6ff;
+                
+                --theme-nav-bg: rgba(255, 255, 255, 0.9);
+                --theme-nav-border: #f1f5f9;
+                
+                --theme-card-bg: #ffffff;
+                --theme-card-border: #f1f5f9;
+                --theme-card-hover-border: #e2e8f0;
+                --theme-card-history-bg: #ffffff;
+                --theme-card-history-bg-hover: #f8fafc;
+                --theme-card-history-void-bg: #f8fafc;
+                
+                --theme-text: #1e293b;
+                --theme-text-heading: #0f172a;
+                --theme-text-muted: #64748b;
+                
+                --theme-primary: #7c3aed;
+                --theme-primary-hover: #6d28d9;
+                --theme-primary-light: #f3f0ff; /* accent-purple */
+                --theme-primary-text: #ffffff;
+                
+                --theme-status-green: #10b981;
+                --theme-status-red: #ef4444;
+                
+                --theme-tag-today-bg: #f3f0ff;
+                --theme-tag-today-text: #7c3aed;
+                --theme-tag-tomorrow-bg: #f3f0ff;
+                --theme-tag-tomorrow-text: #7c3aed;
+                --theme-tag-date-bg: #f8fafc;
+                --theme-tag-date-text: #94a3b8;
+                
+                --theme-shadow-color: 0 2px 15px -3px rgba(0, 0, 0, 0.07), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+                --theme-footer-bg: #f8fafc;
+                --theme-footer-border: #f1f5f9;
+                
+                --theme-icon-primary-text: #ffffff;
+                --theme-icon-primary-bg: #7c3aed;
+                --theme-icon-nav: #94a3b8;
+            }
+            .dark {
+                /* Dracula Dark Mode */
+                --theme-bg: #282a36;
+                --theme-surface: #44475a;
+                --theme-header-bg: transparent; 
+                --theme-header-border: transparent;
+                
+                --theme-nav-bg: rgba(40, 42, 54, 0.8);
+                --theme-nav-border: #44475a;
+                
+                --theme-card-bg: #44475a;
+                --theme-card-border: rgba(189, 147, 249, 0.2);
+                --theme-card-hover-border: rgba(189, 147, 249, 0.5);
+                --theme-card-history-bg: rgba(68, 71, 90, 0.4);
+                --theme-card-history-bg-hover: rgba(68, 71, 90, 0.6);
+                --theme-card-history-void-bg: rgba(68, 71, 90, 0.4);
+                
+                --theme-text: #f8f8f2;
+                --theme-text-heading: #f8f8f2;
+                --theme-text-muted: #94a3b8; /* slate-400 equivalent readability */
+                
+                --theme-primary: #bd93f9;
+                --theme-primary-hover: rgba(189, 147, 249, 0.8);
+                --theme-primary-light: rgba(189, 147, 249, 0.1);
+                --theme-primary-text: #282a36;
+                
+                --theme-status-green: #50fa7b;
+                --theme-status-red: #ff5555;
+                
+                --theme-tag-today-bg: rgba(255, 184, 108, 0.1);
+                --theme-tag-today-text: #ffb86c; /* dracula-orange */
+                --theme-tag-tomorrow-bg: rgba(255, 121, 198, 0.1);
+                --theme-tag-tomorrow-text: #ff79c6; /* dracula-pink */
+                --theme-tag-date-bg: transparent;
+                --theme-tag-date-text: #64748b; /* slate-500 */
+                
+                --theme-shadow-color: none;
+                --theme-footer-bg: transparent;
+                --theme-footer-border: #44475a;
+                
+                --theme-icon-primary-text: #282a36;
+                --theme-icon-primary-bg: #bd93f9;
+                --theme-icon-nav: #94a3b8;
+            }
+            body {
+                background-color: var(--theme-bg);
+                color: var(--theme-text);
+                transition: background-color 0.3s ease, color 0.3s ease;
+            }
+        }
+        .theme-shadow {
+            box-shadow: var(--theme-shadow-color);
+        }
+    </style>
+
+  <script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          colors: {
+            theme: {
+              bg: "var(--theme-bg)",
+              surface: "var(--theme-surface)",
+              "header-bg": "var(--theme-header-bg)",
+              "header-border": "var(--theme-header-border)",
+
+              "nav-bg": "var(--theme-nav-bg)",
+              "nav-border": "var(--theme-nav-border)",
+
+              "card-bg": "var(--theme-card-bg)",
+              "card-border": "var(--theme-card-border)",
+              "card-hover": "var(--theme-card-hover-border)",
+              "card-hist": "var(--theme-card-history-bg)",
+              "card-hist-hover": "var(--theme-card-history-bg-hover)",
+              "card-hist-void": "var(--theme-card-history-void-bg)",
+
+              text: "var(--theme-text)",
+              heading: "var(--theme-text-heading)",
+              muted: "var(--theme-text-muted)",
+
+              primary: "var(--theme-primary)",
+              "primary-hover": "var(--theme-primary-hover)",
+              "primary-light": "var(--theme-primary-light)",
+              "primary-text": "var(--theme-primary-text)",
+
+              "status-green": "var(--theme-status-green)",
+              "status-red": "var(--theme-status-red)",
+
+              "tag-today-bg": "var(--theme-tag-today-bg)",
+              "tag-today-text": "var(--theme-tag-today-text)",
+              "tag-tom-bg": "var(--theme-tag-tomorrow-bg)",
+              "tag-tom-text": "var(--theme-tag-tomorrow-text)",
+              "tag-date-bg": "var(--theme-tag-date-bg)",
+              "tag-date-text": "var(--theme-tag-date-text)",
+
+              "footer-bg": "var(--theme-footer-bg)",
+              "footer-border": "var(--theme-footer-border)",
+
+              "icon-pt": "var(--theme-icon-primary-text)",
+              "icon-pb": "var(--theme-icon-primary-bg)",
+              "icon-n": "var(--theme-icon-nav)"
+            }
+          },
+          fontFamily: {
+            "display": ["Plus Jakarta Sans"]
+          },
+          borderRadius: { "DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "2xl": "1rem", "full": "9999px" },
+        },
+      },
+    }
+  </script>
+</head>
+
+<body class="font-display overflow-y-scroll min-h-screen transition-colors duration-300">
+
+  <!-- Theme Toggle Button -->
+  <button id="themeToggle"
+    class="fixed bottom-6 right-6 z-50 p-3 rounded-full bg-theme-surface border border-theme-nav-border shadow-md hover:scale-110 transition-transform text-theme-primary flex items-center justify-center cursor-pointer">
+    <span class="material-symbols-outlined" id="themeIcon">light_mode</span>
+  </button>
+
+  <header
+    class="flex items-center justify-center whitespace-nowrap border-b border-solid border-theme-border bg-theme-surface w-full sticky top-0 z-50 shadow-sm transition-colors duration-300">
+    <div class="flex items-center justify-between w-full max-w-[1440px] px-4 md:px-10 py-4 relative">
+      <div class="flex items-center gap-4 text-theme-heading transition-colors duration-300 z-10">
+        <span
+          class="material-symbols-outlined text-theme-primary text-2xl transition-colors duration-300">directions_car</span>
+        <h2
+          class="text-theme-heading text-xl font-bold leading-tight tracking-[-0.015em] transition-colors duration-300">
+          RideShare</h2>
+      </div>
+
+      <nav class="hidden md:flex items-center gap-9 absolute left-1/2 -translate-x-1/2 z-0">
+        <a class="text-theme-text-main hover:text-theme-primary transition-colors text-sm font-medium leading-normal duration-300"
+          href="home.html">Home</a>
+        <a class="text-theme-text-main hover:text-theme-primary transition-colors text-sm font-medium leading-normal duration-300"
+          href="find-ride.html">Find Ride</a>
+        <a class="text-theme-primary text-sm font-bold leading-normal border-b-2 border-theme-primary pb-1 transition-colors duration-300"
+          href="my-rides.html">My Rides</a>
+        <a class="text-theme-text-main hover:text-theme-primary transition-colors text-sm font-medium leading-normal duration-300"
+          href="profile.html">Profile</a>
+      </nav>
+
+      <div class="flex items-center gap-4 z-10">
+        <div
+          class="bg-center bg-no-repeat aspect-square bg-cover rounded-full size-10 border border-theme-border transition-colors duration-300"
+          data-alt="User profile avatar"
+          style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuCq4BXqeusrXeazN10E0xJ9Tf-Oyz_q103vVAmdGMwQkXyrWyoUjVOAIZ3VHDV_Y5wml4X5fTDRMSNkVtkj3RFJAjkkVRqOqGrAAQ1zCMs8qY-VOF16bn-dQ_Vbs7ZDgUub8-CITLZMcvgKYM83KAZm9LoffO99FvbN6ja6UJw1oSNuDkticG0Rfn7PjJd7qiUwDNoS-c_cYlSemIiojxpJCaiCECrto6-NjRL5ABAYIvBIL4-yEQSdzTWNhASYAaJW7ZsnZFeyQxo");'>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <div class="bg-theme-header-bg border-b border-theme-header-border py-12 transition-colors duration-300">
+    <header class="max-w-7xl mx-auto px-6">
+      <h1 class="text-3xl font-bold text-theme-heading mb-2 transition-colors duration-300">My Rides</h1>
+      <p class="text-theme-muted font-medium transition-colors duration-300">Your visual ride history and upcoming
+        student pools.</p>
+    </header>
+  </div>
+
+  <main class="max-w-7xl mx-auto px-6 py-10 transition-colors duration-300">
+    <section class="mb-14">
+      <div class="flex items-center justify-between mb-8">
+        <h2 class="text-xl font-bold flex items-center gap-2 text-theme-heading transition-colors duration-300">
+          <span
+            class="material-symbols-outlined text-theme-primary transition-colors duration-300">calendar_month</span>
+          Upcoming Pools
+        </h2>
+      </div>
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+
+        <!-- Active Pool Card 1 -->
+        <div
+          class="bg-theme-card-bg border border-theme-card-border rounded-2xl p-5 theme-shadow hover:border-theme-card-hover hover:shadow-lg transition-all flex flex-col justify-between duration-300">
+          <div>
+            <div class="flex justify-between items-start mb-4">
+              <span
+                class="text-[10px] font-bold text-theme-tag-today-text uppercase tracking-wider bg-theme-tag-today-bg px-2.5 py-1 rounded-md transition-colors duration-300">Today</span>
+              <div class="flex -space-x-2">
+                <img alt="P1"
+                  class="w-7 h-7 rounded-full border-2 border-theme-card-bg shadow-sm transition-colors duration-300"
+                  src="https://lh3.googleusercontent.com/aida-public/AB6AXuDRi7d1w94dARtDHySZtkmVtoBIH_i7IVgWVy8PncDKaqD_PqHo0TUco02d9ZRPf1kHYRYwhHdHqESGUiMAfTwryLRu5PnjcjbE1pLn6TbZex8UskqgC-8kAr_I3uZoPZJPcQZL8hOCu_SC9m0p6T3_PQn9ab8tONCB4X70kP3CDz_osGhYh7kMFHTJFxDUMF0A0zSIoDm-mSIXd0mXWZebMqlu7Ya3MlYTuPaIfy788LasSEPAUpIw0SPBkiSvAc4ckIxUOqDmhY8" />
+                <img alt="P2"
+                  class="w-7 h-7 rounded-full border-2 border-theme-card-bg shadow-sm transition-colors duration-300"
+                  src="https://lh3.googleusercontent.com/aida-public/AB6AXuBye-8SmqASoTXvgN4_s9SZaHjpePwlgUHzmE7AwnebXukHdvnUknSxwgPCd6QplNR_72rEzcfi8xrF7-8kzds4DHSVEq9T85g680GJHvqGmlOIxUWiB3QeQEonIgvCLLQh4PgpXb6oe1GGG2yEv236km00W3vVSf6-F8yTPfJ7TTevYE3YRs5mCpq4ztKWZxLhhy2VJF7x5_-SJOXyYF8iALfcmokvQ5c8QWsjy4sV8JErVigY0IfUtCq0XwnD0Ut8YebTXxOzSqhTsfDqYHbg2caQsvuDkbI0MjQU_qyARTd-1CDl7w_OdgE01MK3_eTKoQ" />
+                <div
+                  class="w-7 h-7 rounded-full border-2 border-theme-card-bg bg-theme-primary-light flex items-center justify-center text-[9px] font-bold text-theme-primary shadow-sm transition-colors duration-300">
+                  +1</div>
+              </div>
+            </div>
+            <h3 class="font-bold text-theme-heading text-base leading-tight mb-2 transition-colors duration-300">Library
+              to North Gate</h3>
+            <p
+              class="text-sm text-theme-muted flex items-center gap-1.5 mb-5 font-medium transition-colors duration-300">
+              <span class="material-symbols-outlined text-[18px] transition-colors duration-300">schedule</span> 11:30
+              PM
+            </p>
+          </div>
+          <div class="flex gap-2">
+            <button
+              class="flex-1 py-2 rounded-lg bg-theme-primary text-theme-primary-text hover:bg-theme-primary-hover transition-colors font-bold text-xs shadow-sm duration-300">Details</button>
+            <button
+              class="px-3 py-2 rounded-lg bg-theme-primary-light text-theme-primary hover:bg-theme-primary/20 transition-all duration-300">
+              <span class="material-icons text-lg">chat_bubble</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Active Pool Card 2 -->
+        <div
+          class="bg-theme-card-bg border border-theme-card-border rounded-2xl p-5 theme-shadow hover:border-theme-card-hover hover:shadow-lg transition-all flex flex-col justify-between duration-300">
+          <div>
+            <div class="flex justify-between items-start mb-4">
+              <span
+                class="text-[10px] font-bold text-theme-tag-tom-text uppercase tracking-wider bg-theme-tag-tom-bg px-2.5 py-1 rounded-md transition-colors duration-300">Oct
+                26</span>
+              <div class="flex -space-x-2">
+                <img alt="P1"
+                  class="w-7 h-7 rounded-full border-2 border-theme-card-bg shadow-sm transition-colors duration-300"
+                  src="https://lh3.googleusercontent.com/aida-public/AB6AXuBXKuQC01jI9q9WlHruaXgvR2dP-mXPmyGOPKkY25PLcqF_AYvubfMY9Ma_nQplq0N0WJfv505cnWWX56J56eYJnnAjyrQNARCPkczz6cNi6O1pLLrlIspykwBqs3wWlXrYz8kExT0FGCqYFboSFE5LWGZIF7jhHyiKHrbRNJsOl75WXx8Z3VOB9BwcNraLQxFOEH1iq2MTbUSE-Kf-byu6mXappE-fG5fhJxLgLmSFTKwJjBAYk1CuPVxY5gFBWR8-okatYj2uo6E" />
+                <img alt="P2"
+                  class="w-7 h-7 rounded-full border-2 border-theme-card-bg shadow-sm transition-colors duration-300"
+                  src="https://lh3.googleusercontent.com/aida-public/AB6AXuDiOgdUyaLWGYxcgptRSHAMAqaOY2CZP3-BlRpemtcj7BPLl6t0S3iZDJpgJKhkMrKbHqyariirH59pUwiFy3sxXwZPCe_EwrNXRLrQQ-70ScNN62pWBO54rmt-kMOCjeT5BEt2BtG9qa79tlUqAaTLw4BPTeON2kTYC7EZUyH_08fwlY6sV8JErVigY0IfUtCq0XwnD0Ut8YebTXxOzSqhTsfDqYHbg2caQsvuDkbI0MjQU_qyARTd-1CDl7w_OdgE01MK3_eTKoQ" />
+              </div>
+            </div>
+            <h3 class="font-bold text-theme-heading text-base leading-tight mb-2 transition-colors duration-300">Campus
+              to Downtown</h3>
+            <p
+              class="text-sm text-theme-muted flex items-center gap-1.5 mb-5 font-medium transition-colors duration-300">
+              <span class="material-symbols-outlined text-[18px] transition-colors duration-300">schedule</span> 04:00
+              PM
+            </p>
+          </div>
+          <div class="flex gap-2">
+            <button
+              class="flex-1 py-2 rounded-lg bg-theme-primary text-theme-primary-text text-xs font-bold hover:bg-theme-primary-hover transition-colors shadow-sm duration-300">Details</button>
+            <button
+              class="px-3 py-2 rounded-lg bg-theme-primary-light text-theme-primary hover:bg-theme-primary/20 transition-all duration-300">
+              <span class="material-icons text-lg">chat_bubble</span>
+            </button>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <section>
+      <div class="flex items-center justify-between mb-8">
+        <h2 class="text-xl font-bold flex items-center gap-2 text-theme-heading transition-colors duration-300">
+          <span class="material-symbols-outlined text-theme-muted transition-colors duration-300">history</span>
+          Ride History
+        </h2>
+        <button
+          class="text-sm font-semibold text-theme-muted hover:text-theme-status-red hover:underline transition-colors duration-300">Clear
+          history</button>
+      </div>
+      <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6 gap-4">
+
+        <!-- History Card 1 -->
+        <div
+          class="bg-theme-card-hist border border-theme-card-border rounded-xl p-4 theme-shadow hover:bg-theme-card-hist-hover transition-all group duration-300">
+          <div class="flex items-center justify-between mb-3">
+            <span
+              class="text-[10px] font-bold text-theme-tag-date-text bg-theme-tag-date-bg px-2 py-0.5 rounded transition-colors duration-300">OCT
+              20</span>
+            <div class="flex items-center gap-1.5">
+              <span class="w-1.5 h-1.5 rounded-full bg-theme-status-green transition-colors duration-300"></span>
+              <span
+                class="text-[9px] font-bold text-theme-status-green uppercase tracking-wide transition-colors duration-300">Done</span>
+            </div>
+          </div>
+          <h4 class="font-bold text-theme-heading text-xs truncate mb-1 transition-colors duration-300">Morning Lab Dash
+          </h4>
+          <p class="text-[10px] text-theme-muted/80 font-medium uppercase truncate transition-colors duration-300">
+            Sci-Block 3</p>
+        </div>
+
+        <!-- History Card 2 -->
+        <div
+          class="bg-theme-card-hist border border-theme-card-border rounded-xl p-4 theme-shadow hover:bg-theme-card-hist-hover transition-all group duration-300">
+          <div class="flex items-center justify-between mb-3">
+            <span
+              class="text-[10px] font-bold text-theme-tag-date-text bg-theme-tag-date-bg px-2 py-0.5 rounded transition-colors duration-300">OCT
+              18</span>
+            <div class="flex items-center gap-1.5">
+              <span class="w-1.5 h-1.5 rounded-full bg-theme-status-green transition-colors duration-300"></span>
+              <span
+                class="text-[9px] font-bold text-theme-status-green uppercase tracking-wide transition-colors duration-300">Done</span>
+            </div>
+          </div>
+          <h4 class="font-bold text-theme-heading text-xs truncate mb-1 transition-colors duration-300">Weekly Groceries
+          </h4>
+          <p class="text-[10px] text-theme-muted/80 font-medium uppercase truncate transition-colors duration-300">
+            Walmart Plaza</p>
+        </div>
+
+        <!-- History Card 3 (Void/Cancelled) -->
+        <div
+          class="bg-theme-card-hist-void border border-theme-card-border rounded-xl p-4 theme-shadow opacity-70 group transition-all duration-300">
+          <div class="flex items-center justify-between mb-3">
+            <span
+              class="text-[10px] font-bold text-theme-tag-date-text bg-theme-card-bg px-2 py-0.5 rounded transition-colors duration-300">OCT
+              15</span>
+            <div class="flex items-center gap-1.5">
+              <span class="w-1.5 h-1.5 rounded-full bg-theme-status-red transition-colors duration-300"></span>
+              <span
+                class="text-[9px] font-bold text-theme-status-red uppercase tracking-wide transition-colors duration-300">Void</span>
+            </div>
+          </div>
+          <h4
+            class="font-bold text-theme-muted text-xs truncate mb-1 line-through decoration-theme-muted/50 transition-colors duration-300">
+            Gym Group</h4>
+          <p class="text-[10px] text-theme-muted font-medium uppercase truncate transition-colors duration-300">Rec
+            Center</p>
+        </div>
+
+        <!-- History Card 4 -->
+        <div
+          class="bg-theme-card-hist border border-theme-card-border rounded-xl p-4 theme-shadow hover:bg-theme-card-hist-hover transition-all group duration-300">
+          <div class="flex items-center justify-between mb-3">
+            <span
+              class="text-[10px] font-bold text-theme-tag-date-text bg-theme-tag-date-bg px-2 py-0.5 rounded transition-colors duration-300">OCT
+              12</span>
+            <div class="flex items-center gap-1.5">
+              <span class="w-1.5 h-1.5 rounded-full bg-theme-status-green transition-colors duration-300"></span>
+              <span
+                class="text-[9px] font-bold text-theme-status-green uppercase tracking-wide transition-colors duration-300">Done</span>
+            </div>
+          </div>
+          <h4 class="font-bold text-theme-heading text-xs truncate mb-1 transition-colors duration-300">Night Study</h4>
+          <p class="text-[10px] text-theme-muted/80 font-medium uppercase truncate transition-colors duration-300">South
+            Dorms</p>
+        </div>
+
+        <!-- History Card 5 -->
+        <div
+          class="bg-theme-card-hist border border-theme-card-border rounded-xl p-4 theme-shadow hover:bg-theme-card-hist-hover transition-all group duration-300">
+          <div class="flex items-center justify-between mb-3">
+            <span
+              class="text-[10px] font-bold text-theme-tag-date-text bg-theme-tag-date-bg px-2 py-0.5 rounded transition-colors duration-300">OCT
+              10</span>
+            <div class="flex items-center gap-1.5">
+              <span class="w-1.5 h-1.5 rounded-full bg-theme-status-green transition-colors duration-300"></span>
+              <span
+                class="text-[9px] font-bold text-theme-status-green uppercase tracking-wide transition-colors duration-300">Done</span>
+            </div>
+          </div>
+          <h4 class="font-bold text-theme-heading text-xs truncate mb-1 transition-colors duration-300">Airport Drop
+          </h4>
+          <p class="text-[10px] text-theme-muted/80 font-medium uppercase truncate transition-colors duration-300">
+            Terminal 2</p>
+        </div>
+
+        <!-- History Card 6 -->
+        <div
+          class="bg-theme-card-hist border border-theme-card-border rounded-xl p-4 theme-shadow hover:bg-theme-card-hist-hover transition-all group duration-300">
+          <div class="flex items-center justify-between mb-3">
+            <span
+              class="text-[10px] font-bold text-theme-tag-date-text bg-theme-tag-date-bg px-2 py-0.5 rounded transition-colors duration-300">OCT
+              08</span>
+            <div class="flex items-center gap-1.5">
+              <span class="w-1.5 h-1.5 rounded-full bg-theme-status-green transition-colors duration-300"></span>
+              <span
+                class="text-[9px] font-bold text-theme-status-green uppercase tracking-wide transition-colors duration-300">Done</span>
+            </div>
+          </div>
+          <h4 class="font-bold text-theme-heading text-xs truncate mb-1 transition-colors duration-300">City Mall Run
+          </h4>
+          <p class="text-[10px] text-theme-muted/80 font-medium uppercase truncate transition-colors duration-300">Food
+            Court</p>
+        </div>
+
+      </div>
+    </section>
+  </main>
+
+  <footer class="mt-24 border-t border-theme-footer-border bg-theme-footer-bg py-12 transition-colors duration-300">
+    <div class="max-w-7xl mx-auto px-6 flex flex-col md:flex-row justify-between items-center gap-8">
+      <div class="flex items-center gap-3">
+        <div
+          class="w-8 h-8 bg-theme-primary-light rounded-lg flex items-center justify-center transition-colors duration-300">
+          <span class="material-icons text-theme-primary text-sm transition-colors duration-300">directions_car</span>
+        </div>
+        <span class="font-bold text-theme-heading tracking-tight transition-colors duration-300">RideShare</span>
+        <span class="text-theme-muted text-sm font-medium ml-2 transition-colors duration-300">© 2023 Student Pool
+          Network</span>
+      </div>
+      <div class="flex gap-10 text-sm text-theme-muted font-semibold">
+        <a class="hover:text-theme-primary transition-colors duration-300" href="#">Privacy</a>
+        <a class="hover:text-theme-primary transition-colors duration-300" href="#">Terms</a>
+        <a class="hover:text-theme-primary transition-colors duration-300" href="#">Safety</a>
+        <a class="hover:text-theme-primary transition-colors duration-300" href="#">Support</a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    const themeToggle = document.getElementById('themeToggle');
+    const themeIcon = document.getElementById('themeIcon');
+    const htmlElement = document.documentElement;
+
+    // Load theme from localStorage or default OS preference
+    if (localStorage.getItem('sharedAppTheme') === 'dark' || (!('sharedAppTheme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+      htmlElement.classList.add('dark');
+      themeIcon.textContent = 'dark_mode';
+    } else {
+      htmlElement.classList.remove('dark');
+      themeIcon.textContent = 'light_mode';
+    }
+
+    // Toggle button logic
+    themeToggle.addEventListener('click', () => {
+      htmlElement.classList.toggle('dark');
+
+      if (htmlElement.classList.contains('dark')) {
+        localStorage.setItem('sharedAppTheme', 'dark');
+        themeIcon.textContent = 'dark_mode';
+      } else {
+        localStorage.setItem('sharedAppTheme', 'light');
+        themeIcon.textContent = 'light_mode';
+      }
+    });
+  </script>
+
+</body>
+
+</html>
